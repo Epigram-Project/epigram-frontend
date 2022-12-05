@@ -1,4 +1,4 @@
-export interface RegisterProps {
+export interface RegisterBody {
       firstname:string,
       lastname:string,
       tel:string,

@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import Swal from 'sweetalert2'
 
 import { RegisterApi } from '../../api/register-api'
-import { RegisterProps } from '../../interface/register-interface'
+import { RegisterBody } from '../../interface/register-interface'
 
 export default function Register() {
       const firstname = useRef<HTMLInputElement>(null)
@@ -24,7 +24,7 @@ export default function Register() {
                   })
                   return
             }else{
-                  const body:RegisterProps = {
+                  const body:RegisterBody = {
                         "firstname":firstname.current!.value,
                         "lastname":lastname.current!.value,
                         "tel":tel.current!.value,
@@ -42,9 +42,9 @@ export default function Register() {
                         })
                   }else if (result.message === "repeat email"){
                         Swal.fire({
-                              icon: 'error',
+                              icon: 'warning',
                               title: 'อีเมลล์ซ้ำ โปรดกรอกอีเมลล์ใหม่',
-                              confirmButtonColor:'#cf1e1e'
+                              confirmButtonColor:'#d7a928'
                         })
                   }else{
                         Swal.fire({

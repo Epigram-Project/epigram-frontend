@@ -1,7 +1,24 @@
 import React from 'react'
+import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import { LoginApi } from '../../api/login-api'
+import { LoginBody } from '../../interface/login-interface'
+
 export default function Login() {
+  const username = useRef<HTMLInputElement>(null)
+  const password = useRef<HTMLInputElement>(null)
+
+  async function clickSubmit(){
+    const body:LoginBody = {
+      "username":username.current!.value,
+      "password":password.current!.value
+    }
+
+    const result = await LoginApi(body)
+    console.log(result)
+  }
+
   return (
     <main className='container max-w-sm mx-auto h-screen'>
       <div className="flex flex-col justify-center h-full p-4">
@@ -9,14 +26,14 @@ export default function Login() {
 
         <div className='flex flex-col mt-6'>
           <label htmlFor="username" className='font-medium text-gray-700 text-sm'>ชื่อผู้ใช้งาน</label>
-          <input type="text" id="usernmae"
+          <input type="text" id="usernmae" ref={username}
             className="border-0 border-b-2 border-gray-400 text-gray-400 text-md focus:ring-0 focus:border-gray-400"
           />
         </div>
 
         <div className='flex flex-col mt-4'>
           <label htmlFor="username" className='font-medium text-gray-700 text-sm'>รหัสผ่าน</label>
-          <input type="password" id="password"
+          <input type="password" id="password" ref={password}
             className="border-0 border-b-2 border-gray-400 text-gray-400 text-md focus:ring-0 focus:border-gray-400"
           />
         </div>
@@ -27,7 +44,7 @@ export default function Login() {
         </div>
 
         <div className='mt-8'>
-          <button type="button" className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none font-medium rounded-3xl w-full text-sm px-5 py-2.5 text-center mr-2 mb-2">เข้าสู่ระบบ</button>
+          <button type="button" onClick={clickSubmit} className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-0 focus:outline-none font-medium rounded-3xl w-full text-sm px-5 py-2.5 text-center mr-2 mb-2">เข้าสู่ระบบ</button>
         </div>
       </div>
     </main>

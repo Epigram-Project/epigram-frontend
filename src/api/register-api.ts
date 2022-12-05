@@ -1,8 +1,7 @@
-import { RegisterProps } from "../interface/register-interface"
-import axios from "axios"
-import {AxiosError} from "axios"
+import { RegisterBody } from "../interface/register-interface"
+import axios , {AxiosError} from "axios"
 
-export const RegisterApi = async (body:RegisterProps) => {
+export const RegisterApi = async (body:RegisterBody) => {
       try{
             const result = await axios({
                   url:"http://127.0.0.1:8000/register",
