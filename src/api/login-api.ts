@@ -1,4 +1,4 @@
-import axios , {AxiosError , AxiosResponse} from "axios"
+import axios , {AxiosError} from "axios"
 import { LoginBody } from "../interface/login-interface"
 
 export const LoginApi = async (body:LoginBody) => {
@@ -9,9 +9,9 @@ export const LoginApi = async (body:LoginBody) => {
                   data:body,
                   timeout:5000
             })
-            return result
+            return result.data
       }catch(error){
             const err = error as AxiosError
-            return err
+            return err.response?.data
       }
 }

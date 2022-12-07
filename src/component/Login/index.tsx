@@ -2,6 +2,8 @@ import React from 'react'
 import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import Swal from 'sweetalert2'
+
 import { LoginApi } from '../../api/login-api'
 import { LoginBody } from '../../interface/login-interface'
 
@@ -14,9 +16,44 @@ export default function Login() {
       "username":username.current!.value,
       "password":password.current!.value
     }
-
+    
     const result = await LoginApi(body)
-    console.log(result)
+    
+    
+    if (result.message === "don't exist username in the database"){
+      Swal.fire({
+        icon: 'warning',
+        title: 'ไม่มีชื่อผู้ใช้งานในระบบ',
+        confirmButtonColor:'#d7a928'
+      })
+      return 
+    }
+    
+    if (result.message === "wrong password"){
+      Swal.fire({
+        icon: 'warning',
+        title: 'รหัสผ่านไม่ถูกต้อง',
+        confirmButtonColor:'#d7a928'
+      })
+      return
+    }
+    
+    if (result.message === "wrong password"){
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาดทางฝั่งเซิฟเวอร์',
+        confirmButtonColor:'#cf1e1e'
+      })
+      return
+    }
+
+    Swal.fire({
+      icon: 'success',
+      title: 'เข้าสู่ระบบสำเร็จ',
+      confirmButtonColor:'#068e0f'
+    }).then(() => {
+      
+    })
   }
 
   return (
